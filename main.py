@@ -96,7 +96,7 @@ while True:
                         with open(output_aac, mode="ab") as f:
                             response = requests.get(url)
                             f.write(response.content)
-                    time.sleep(13.90)
+                    time.sleep(14)
                     os.remove(f'radiko_audio_{timestamp}.ts')
             else:
                 print(f"音声ダウンロード失敗: {response_audio.status_code}")
