@@ -72,11 +72,32 @@ while True:
         seek -= 300
         get_M = datetime.now()
         M = int(get_M.strftime('%M'))
-        if M <= 3:
+        get_H = datetime.now()
+        H = int(get_H.strftime('%H'))
+        print(end_time - 23 + 100)
+        if H == 23:
+            end_time - 24
+            to - 24
+            end_time + 100
+            to + 100
+            print('tinko')
+            print(end_time)
+            print(to)
+            url = f"{base_url}?station_id=802&start_at={str(formatted_start_time)+'0000'}&ft={str(ft)+'0000'}&end_at={str(end_time)+'0000'}&to={str(to)+'0000'}&seek={seek}&preroll=0&l=15&lsid=eb1c02025639072f88f0cbe7a217eba1&type=b" 
+        elif M <= 3:
             seek += 6000
+            #2024/12/15/00
+            #2024/12/14/23
+            #2024/12/15/01
+            #2024/12/15/00
+            formatted_start_time - 100 + 23
+            ft - 100 + 23
+            end_time - 1
+            to - 1
             url = f"{base_url}?station_id=802&start_at={str(formatted_start_time-1)+'0000'}&ft={str(ft-1)+'0000'}&end_at={str(end_time-1)+'0000'}&to={str(to-1)+'0000'}&seek={seek-10000}&preroll=0&l=15&lsid=eb1c02025639072f88f0cbe7a217eba1&type=b"
         else:
             url = f"{base_url}?station_id=802&start_at={str(formatted_start_time)+'0000'}&ft={str(ft)+'0000'}&end_at={str(end_time)+'0000'}&to={str(to)+'0000'}&seek={seek}&preroll=0&l=15&lsid=eb1c02025639072f88f0cbe7a217eba1&type=b"
+        print(url)
         response_m3u8 = requests.get(url,headers=auth2_headers)
         if response_m3u8.status_code == 200:
             url_list = re.findall(r'https?://[^\s]+', response_m3u8.text)
