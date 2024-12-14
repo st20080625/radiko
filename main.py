@@ -70,7 +70,13 @@ while True:
         current_time = datetime.now()
         seek = int(current_time.strftime('%Y%m%d%H%M%S'))
         seek -= 300
-        url = f"{base_url}?station_id=802&start_at={str(formatted_start_time)+'0000'}&ft={str(ft)+'0000'}&end_at={str(end_time)+'0000'}&to={str(to)+'0000'}&seek={seek}&preroll=0&l=15&lsid=eb1c02025639072f88f0cbe7a217eba1&type=b"
+        get_M = datetime.now()
+        M = int(get_M.strftime('%M'))
+        if M <= 3:
+            seek += 6000
+            url = f"{base_url}?station_id=802&start_at={str(formatted_start_time-1)+'0000'}&ft={str(ft-1)+'0000'}&end_at={str(end_time-1)+'0000'}&to={str(to-1)+'0000'}&seek={seek-10000}&preroll=0&l=15&lsid=eb1c02025639072f88f0cbe7a217eba1&type=b"
+        else:
+            url = f"{base_url}?station_id=802&start_at={str(formatted_start_time)+'0000'}&ft={str(ft)+'0000'}&end_at={str(end_time)+'0000'}&to={str(to)+'0000'}&seek={seek}&preroll=0&l=15&lsid=eb1c02025639072f88f0cbe7a217eba1&type=b"
         response_m3u8 = requests.get(url,headers=auth2_headers)
         if response_m3u8.status_code == 200:
             url_list = re.findall(r'https?://[^\s]+', response_m3u8.text)
@@ -90,7 +96,7 @@ while True:
                         with open(output_aac, mode="ab") as f:
                             response = requests.get(url)
                             f.write(response.content)
-                    time.sleep(13.8)
+                    time.sleep(14.37)
                     os.remove(f'radiko_audio_{timestamp}.ts')
             else:
                 print(f"音声ダウンロード失敗: {response_audio.status_code}")
