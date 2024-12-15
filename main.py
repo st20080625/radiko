@@ -6,6 +6,7 @@ import re
 import subprocess
 import threading
 import os
+import sys
 
 if os.path.exists("combine.aac"):
     os.remove("combine.aac")
@@ -117,9 +118,10 @@ while True:
                         with open(output_aac, mode="ab") as f:
                             response = requests.get(url)
                             f.write(response.content)
-                    time.sleep(14.6)
+                    time.sleep(14)
                     os.remove(f'radiko_audio_{timestamp}.ts')
             else:
                 print(f"音声ダウンロード失敗: {response_audio.status_code}")
         else:
             print("m3u8の取得に失敗しました")
+            sys.exit()
